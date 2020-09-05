@@ -1,3 +1,7 @@
 .app {
   text-align: center;
+
+  &__container {
+    min-height: 550px;
+  }
 }
