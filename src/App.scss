@@ -4,4 +4,9 @@
   &__container {
     min-height: 550px;
   }
+
+  &__destinations {
+    display: flex;
+    justify-content: center;
+  }
 }
