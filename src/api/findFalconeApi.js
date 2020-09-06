@@ -23,6 +23,7 @@ const api = async ({ path = '', requestType = 'GET', requestBody = {} }) => {
     return [];
   } catch (err) {
     console.log(err);
+    return [];
   }
 };
 
