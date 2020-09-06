@@ -3,6 +3,7 @@ import Header from './components/Header/Header.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import DestinationCard from './components/DestinationCard/DestinationCard';
 import findFalconeApi from './api/findFalconeApi';
+import cloneDeep from 'lodash/cloneDeep';
 import './App.scss';
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
   const [planets, setPlanets] = useState([]);
 
   const desinationCardsJsx = [];
+  let previousVehicleState = [];
 
   useEffect(() => {
     (async () => {
@@ -39,7 +41,7 @@ const App = () => {
     })();
   }, []);
 
-  const planetsOnSelect = (planetSelected, cardSelected) => {
+  const planetsOnSelect = ({ planetSelected, cardSelected }) => {
     const updatedPlanetsState = planets.map((planet) => {
       if (planet.selected === cardSelected) {
         planet.selected = false;
@@ -54,12 +56,33 @@ const App = () => {
     setPlanets(updatedPlanetsState);
   };
 
+  const vehiclesOnSelect = ({ vehicleSelected, previousVehicleSelected }) => {
+    previousVehicleState = cloneDeep(vehicles);
+
+    const updatedVehiclesState = vehicles.map((vehicle) => {
+      if (vehicle.name === vehicleSelected) {
+        vehicle.total_no -= 1;
+        vehicle.selected += 1;
+      }
+
+      if (vehicle.name === previousVehicleSelected) {
+        vehicle.total_no += 1;
+        vehicle.selected -= 1;
+      }
+      return vehicle;
+    });
+
+    setVehicles(updatedVehiclesState);
+  };
+
   for (let i = 0; i < 4; i++) {
     desinationCardsJsx.push(
       <DestinationCard
         key={i}
         planets={planets}
         planetsOnSelect={planetsOnSelect}
+        vehicles={vehicles}
+        vehiclesOnSelect={vehiclesOnSelect}
         title={`Destination ${i + 1}`}
       />
     );

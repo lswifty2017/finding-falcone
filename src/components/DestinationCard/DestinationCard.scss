@@ -1,8 +1,14 @@
 .destination-card {
-  min-width: 160px;
-  padding: 20px;
+  min-width: 200px;
+  padding: 12px;
+  margin: 12px;
+  background-color: #d3d3d3;
 
   &__title {
     padding-bottom: 8px;
+  }
+
+  &__destination {
+    padding-bottom: 24px;
   }
 }
