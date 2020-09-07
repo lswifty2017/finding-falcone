@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import cloneDeep from 'lodash/cloneDeep';
 import './DestinationCard.scss';
@@ -15,7 +15,6 @@ const DestinationCard = ({
   const [vehicleOptions, setVehicleOptions] = useState([]);
 
   const planetOptions = cloneDeep(planets);
-  // let vehicleOptions = cloneDeep(vehicles);
 
   let previousVehicleSelected = '';
 
@@ -40,7 +39,7 @@ const DestinationCard = ({
     }
   });
 
-  const filterVehiclesByPlanet = (planet, distance) => {
+  const filterVehiclesByPlanet = (distance) => {
     const filteredOptions = cloneDeep(vehicles).filter(
       (vehicle) => vehicle.max_distance <= distance
     );
@@ -56,9 +55,9 @@ const DestinationCard = ({
           defaultValue={selectedPlanet}
           options={planetOptions}
           onChange={({ name, distance }) => {
-            filterVehiclesByPlanet(name, distance);
+            filterVehiclesByPlanet(distance);
             setSelectedPlanet(name);
-            planetsOnSelect({ planetSelected: name, title: title });
+            planetsOnSelect({ planetSelected: name, cardSelected: title });
           }}
           isOptionDisabled={(option) => option.disabled}
         ></Select>
