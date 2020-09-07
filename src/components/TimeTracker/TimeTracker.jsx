@@ -1,8 +1,22 @@
 import React from 'react';
 import './TimeTracker.scss';
 
-const TimeTracker = () => {
-  return <div className="time-tracker"></div>;
+const TimeTracker = ({ planets, vehicles }) => {
+  let totalTime = 0;
+
+  planets.forEach((planet) => {
+    vehicles.forEach((vehicle) => {
+      if (vehicle.selected.includes(planet.selected)) {
+        totalTime += planet.distance / vehicle.speed;
+      }
+    });
+  });
+
+  return (
+    <div className="time-tracker">
+      Total Time Taken: <span>{totalTime}</span>
+    </div>
+  );
 };
 
 export default TimeTracker;

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header/Header.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import DestinationCard from './components/DestinationCard/DestinationCard';
+import TimeTracker from './components/TimeTracker/TimeTracker';
+import Button from './components/Button/Button';
 import findFalconeApi from './api/findFalconeApi';
-import cloneDeep from 'lodash/cloneDeep';
 import './App.scss';
 
 const App = () => {
@@ -11,7 +12,6 @@ const App = () => {
   const [planets, setPlanets] = useState([]);
 
   const desinationCardsJsx = [];
-  let previousVehicleState = [];
 
   useEffect(() => {
     (async () => {
@@ -33,7 +33,8 @@ const App = () => {
       });
 
       vehiclesData.map((vehicle) => {
-        vehicle['selected'] = 0;
+        vehicle['total_selected'] = 0;
+        vehicle['selected'] = [];
         return vehicle;
       });
 
@@ -56,18 +57,24 @@ const App = () => {
     setPlanets(updatedPlanetsState);
   };
 
-  const vehiclesOnSelect = ({ vehicleSelected, previousVehicleSelected }) => {
-    previousVehicleState = cloneDeep(vehicles);
-
+  const vehiclesOnSelect = ({
+    vehicleSelected,
+    previousVehicleSelected,
+    cardSelected,
+  }) => {
     const updatedVehiclesState = vehicles.map((vehicle) => {
       if (vehicle.name === vehicleSelected) {
         vehicle.total_no -= 1;
-        vehicle.selected += 1;
+        vehicle.total_selected += 1;
+        vehicle.selected.push(cardSelected);
       }
 
       if (vehicle.name === previousVehicleSelected) {
         vehicle.total_no += 1;
-        vehicle.selected -= 1;
+        vehicle.total_selected -= 1;
+        vehicle.selected = vehicle.selected.filter(
+          (selected) => selected !== cardSelected
+        );
       }
       return vehicle;
     });
@@ -95,6 +102,10 @@ const App = () => {
         <h1>Finding Falcone</h1>
         <p>Select which planets you want to search for Al Falcone.</p>
         <div className="app__destinations">{desinationCardsJsx}</div>
+        <TimeTracker planets={planets} vehicles={vehicles} />
+        <div className="app__buttons">
+          <Button text="Search for Falcone" bgColor="green" />
+        </div>
       </div>
       <Footer />
     </div>

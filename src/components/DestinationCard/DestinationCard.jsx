@@ -73,6 +73,7 @@ const DestinationCard = ({
             vehiclesOnSelect({
               vehicleSelected: name,
               previousVehicleSelected: previousVehicleSelected,
+              cardSelected: title,
             });
           }}
           isOptionDisabled={(option) => option.disabled}

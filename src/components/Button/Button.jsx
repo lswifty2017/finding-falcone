@@ -1,11 +1,14 @@
 import React from 'react';
+import './Button.scss';
 
-const Button = () => {
+const Button = ({ text = '', onClick, bgColor = '' }) => {
   return (
-    <div className="Button">
-      <button>Reset</button>
-      <a href="/">Home</a>
-    </div>
+    <button
+      className={bgColor ? `button button--${bgColor}` : 'button'}
+      onClick={onClick}
+    >
+      {text}
+    </button>
   );
 };
 

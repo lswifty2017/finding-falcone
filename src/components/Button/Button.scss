@@ -1,0 +1,14 @@
+.button {
+  background-color: #00578a;
+  padding: 10px 16px;
+  margin: 12px;
+  border-radius: 6px;
+
+  &--green {
+    background-color: #00b200;
+
+    &:hover {
+      background-color: #009900;
+    }
+  }
+}
