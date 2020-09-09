@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders Finding Falcone title', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText('Finding Falcone');
-  expect(linkElement).toBeInTheDocument();
+  const titleText = getByText('Finding Falcone');
+  expect(titleText).toBeInTheDocument();
 });

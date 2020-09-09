@@ -1,7 +1,7 @@
 import React from 'react';
 import './TimeTracker.scss';
 
-const TimeTracker = ({ planets, vehicles }) => {
+const TimeTracker = ({ planets = [], vehicles = [] }) => {
   let totalTime = 0;
 
   planets.forEach((planet) => {

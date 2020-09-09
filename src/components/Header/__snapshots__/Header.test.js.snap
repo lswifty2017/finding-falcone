@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders correctly 1`] = `
+<div
+  className="header"
+>
+  <div
+    className="header__link"
+  >
+    <a
+      href="/"
+    >
+      Home
+    </a>
+  </div>
+</div>
+`;

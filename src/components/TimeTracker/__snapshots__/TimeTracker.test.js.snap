@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimeTracker renders correctly 1`] = `
+<div
+  className="time-tracker"
+>
+  Total Time Taken: 
+  <span
+    id="total-time"
+  >
+    0
+  </span>
+</div>
+`;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import cloneDeep from 'lodash/cloneDeep';
 import Header from './components/Header/Header.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import DestinationCard from './components/DestinationCard/DestinationCard';
@@ -43,7 +44,7 @@ const App = () => {
   }, []);
 
   const planetsOnSelect = ({ planetSelected, cardSelected }) => {
-    const updatedPlanetsState = planets.map((planet) => {
+    const updatedPlanetsState = cloneDeep(planets).map((planet) => {
       if (planet.selected === cardSelected) {
         planet.selected = false;
       }
@@ -62,7 +63,7 @@ const App = () => {
     previousVehicleSelected,
     cardSelected,
   }) => {
-    const updatedVehiclesState = vehicles.map((vehicle) => {
+    const updatedVehiclesState = cloneDeep(vehicles).map((vehicle) => {
       if (vehicle.name === vehicleSelected) {
         vehicle.total_no -= 1;
         vehicle.total_selected += 1;
