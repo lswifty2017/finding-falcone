@@ -29,20 +29,20 @@ const DestinationCard = ({
     }
   });
 
-  vehicleOptions.map((option) => {
-    const { name, total_no } = option;
-
-    option.label = `${name} (${total_no})`;
-
-    if (total_no === 0) {
-      option.disabled = true;
-    }
-  });
-
   const filterVehiclesByPlanet = (distance) => {
     const filteredOptions = cloneDeep(vehicles).filter(
       (vehicle) => vehicle.max_distance <= distance
     );
+
+    filteredOptions.map((option) => {
+      const { name, total_no } = option;
+
+      option.label = `${name} (${total_no})`;
+
+      if (total_no === 0) {
+        option.disabled = true;
+      }
+    });
 
     setVehicleOptions(filteredOptions);
   };
