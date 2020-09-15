@@ -12,6 +12,9 @@ const App = () => {
   const [vehicles, setVehicles] = useState([]);
   const [planets, setPlanets] = useState([]);
 
+  const [vehiclesSelected, setVehiclesSelected] = useState([]);
+  const [planetsSelected, setPlanetsSelected] = useState([]);
+
   const desinationCardsJsx = [];
 
   useEffect(() => {
@@ -44,6 +47,8 @@ const App = () => {
   }, []);
 
   const planetsOnSelect = ({ planetSelected, cardSelected }) => {
+    const planetsSelected = [];
+
     const updatedPlanetsState = cloneDeep(planets).map((planet) => {
       if (planet.selected === cardSelected) {
         planet.selected = false;
@@ -56,6 +61,14 @@ const App = () => {
     });
 
     setPlanets(updatedPlanetsState);
+
+    updatedPlanetsState.forEach(({ name, selected }) => {
+      if (selected) {
+        planetsSelected.push(name);
+      }
+    });
+
+    setPlanetsSelected(planetsSelected);
   };
 
   const vehiclesOnSelect = ({
@@ -63,6 +76,8 @@ const App = () => {
     previousVehicleSelected,
     cardSelected,
   }) => {
+    const selectedVehicles = [];
+
     const updatedVehiclesState = cloneDeep(vehicles).map((vehicle) => {
       if (vehicle.name === vehicleSelected) {
         vehicle.total_no -= 1;
@@ -81,7 +96,31 @@ const App = () => {
     });
 
     setVehicles(updatedVehiclesState);
+
+    updatedVehiclesState.forEach(({ name, total_selected }) => {
+      for (let i = 0; i < total_selected; i++) {
+        selectedVehicles.push(name);
+      }
+    });
+
+    setVehiclesSelected(selectedVehicles);
   };
+
+  const searchForFalcone = async () => {
+    const searchResult = await findFalconeApi({
+      path: 'find',
+      requestType: 'POST',
+      requestBody: {
+        vehicles_names: vehiclesSelected,
+        planet_names: planetsSelected,
+      },
+    });
+
+    alert(vehiclesSelected);
+    alert(planetsSelected);
+  };
+
+  // Create 4 destination cards
 
   for (let i = 0; i < 4; i++) {
     desinationCardsJsx.push(
@@ -105,7 +144,16 @@ const App = () => {
         <div className="app__destinations">{desinationCardsJsx}</div>
         <TimeTracker planets={planets} vehicles={vehicles} />
         <div className="app__buttons">
-          <Button text="Search for Falcone" bgColor="green" />
+          <Button
+            text="Search for Falcone"
+            bgColor="green"
+            onClick={searchForFalcone}
+            disabled={
+              planetsSelected.length !== 4 || vehiclesSelected.length !== 4
+                ? true
+                : false
+            }
+          />
         </div>
       </div>
       <Footer />

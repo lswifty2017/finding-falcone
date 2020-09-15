@@ -18,7 +18,7 @@ const DestinationCard = ({
 
   let previousVehicleSelected = '';
 
-  planetOptions.map((option) => {
+  planetOptions.forEach((option) => {
     const { name, selected } = option;
 
     option.label = name;
@@ -34,7 +34,7 @@ const DestinationCard = ({
       (vehicle) => vehicle.max_distance <= distance
     );
 
-    filteredOptions.map((option) => {
+    filteredOptions.forEach((option) => {
       const { name, total_no } = option;
 
       option.label = `${name} (${total_no})`;
@@ -52,6 +52,8 @@ const DestinationCard = ({
       <div className="destination-card__destination">
         <div className="destination-card__title">{title}</div>
         <Select
+          name="select"
+          classNamePrefix="planets"
           defaultValue={selectedPlanet}
           options={planetOptions}
           onChange={({ name, distance }) => {

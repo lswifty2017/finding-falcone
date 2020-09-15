@@ -17,15 +17,15 @@ exports[`DestinationCard renders correctly 1`] = `
       onKeyDown={[Function]}
     >
       <div
-        className=" css-yk16xz-control"
+        className="planets__control css-yk16xz-control"
         onMouseDown={[Function]}
         onTouchEnd={[Function]}
       >
         <div
-          className=" css-g1d714-ValueContainer"
+          className="planets__value-container css-g1d714-ValueContainer"
         >
           <div
-            className=" css-1wa3eu0-placeholder"
+            className="planets__placeholder css-1wa3eu0-placeholder"
           >
             Select...
           </div>
@@ -33,7 +33,7 @@ exports[`DestinationCard renders correctly 1`] = `
             className="css-b8ldur-Input"
           >
             <div
-              className=""
+              className="planets__input"
               style={
                 Object {
                   "display": "inline-block",
@@ -88,14 +88,14 @@ exports[`DestinationCard renders correctly 1`] = `
           </div>
         </div>
         <div
-          className=" css-1hb7zxy-IndicatorsContainer"
+          className="planets__indicators css-1hb7zxy-IndicatorsContainer"
         >
           <span
-            className=" css-1okebmr-indicatorSeparator"
+            className="planets__indicator-separator css-1okebmr-indicatorSeparator"
           />
           <div
             aria-hidden="true"
-            className=" css-tlfecz-indicatorContainer"
+            className="planets__indicator planets__dropdown-indicator css-tlfecz-indicatorContainer"
             onMouseDown={[Function]}
             onTouchEnd={[Function]}
           >
@@ -114,6 +114,11 @@ exports[`DestinationCard renders correctly 1`] = `
           </div>
         </div>
       </div>
+      <input
+        name="select"
+        type="hidden"
+        value=""
+      />
     </div>
   </div>
   <div
