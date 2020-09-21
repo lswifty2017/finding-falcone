@@ -14,7 +14,7 @@ const TimeTracker = ({ planets = [], vehicles = [] }) => {
 
   return (
     <div className="time-tracker">
-      Total Time Taken: <span id="total-time">{totalTime}</span>
+      Total Time Taken: <span id="total-time">{Math.round(totalTime)}</span>
     </div>
   );
 };

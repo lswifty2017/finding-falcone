@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import cloneDeep from 'lodash/cloneDeep';
 import Header from './components/Header/Header.jsx';
 import Footer from './components/Footer/Footer.jsx';
@@ -14,6 +15,10 @@ const App = () => {
 
   const [vehiclesSelected, setVehiclesSelected] = useState([]);
   const [planetsSelected, setPlanetsSelected] = useState([]);
+
+  const [missionResult, setMissionResult] = useState('false');
+
+  const routerHistory = useHistory();
 
   const desinationCardsJsx = [];
 
@@ -107,7 +112,7 @@ const App = () => {
   };
 
   const searchForFalcone = async () => {
-    const searchResult = await findFalconeApi({
+    const { status } = await findFalconeApi({
       path: 'find',
       requestType: 'POST',
       requestBody: {
@@ -116,12 +121,11 @@ const App = () => {
       },
     });
 
-    alert(vehiclesSelected);
-    alert(planetsSelected);
+    setMissionResult(status);
+    routerHistory.push('/result');
   };
 
   // Create 4 destination cards
-
   for (let i = 0; i < 4; i++) {
     desinationCardsJsx.push(
       <DestinationCard
@@ -139,22 +143,36 @@ const App = () => {
     <div className="app">
       <Header />
       <div className="app__container">
-        <h1>Finding Falcone</h1>
-        <p>Select which planets you want to search for Al Falcone.</p>
-        <div className="app__destinations">{desinationCardsJsx}</div>
-        <TimeTracker planets={planets} vehicles={vehicles} />
-        <div className="app__buttons">
-          <Button
-            text="Search for Falcone"
-            bgColor="green"
-            onClick={searchForFalcone}
-            disabled={
-              planetsSelected.length !== 4 || vehiclesSelected.length !== 4
-                ? true
-                : false
-            }
-          />
-        </div>
+        <Switch>
+          <Route path="/result">
+            <h1>Mission Result</h1>
+            <div className="app__result">
+              {missionResult === 'success' ? (
+                <h2>The mission to find Falcone was successful!</h2>
+              ) : (
+                <h2>You have failed to find Falcone.</h2>
+              )}
+            </div>
+          </Route>
+          <Route path="/">
+            <h1>Finding Falcone</h1>
+            <p>Select which planets you want to search for Al Falcone.</p>
+            <div className="app__destinations">{desinationCardsJsx}</div>
+            <TimeTracker planets={planets} vehicles={vehicles} />
+            <div className="app__buttons">
+              <Button
+                text="Search for Falcone"
+                bgColor="green"
+                onClick={searchForFalcone}
+                disabled={
+                  planetsSelected.length !== 4 || vehiclesSelected.length !== 4
+                    ? true
+                    : false
+                }
+              />
+            </div>
+          </Route>
+        </Switch>
       </div>
       <Footer />
     </div>

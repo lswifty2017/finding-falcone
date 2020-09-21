@@ -1,15 +1,21 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
-
-test('renders Finding Falcone title', () => {
-  const { getByText } = render(<App />);
-  const titleText = getByText('Finding Falcone');
-  expect(titleText).toBeInTheDocument();
-
+describe('Finding Falcone App', () => {
   test.todo(
-    'when planet is selected, option should be disabled in all other cards'
+    'Find Falcone button disabled if all planets and vehicles are not selected'
   );
 
-  test.todo('renders all the planet options on load');
+  test.todo(
+    'provides a mission result of either success or fail on Find Falcone button click'
+  );
+
+  test.todo(
+    'selected planet should be disabled on all other cards if selected in one card'
+  );
+
+  test.todo(
+    'selected vehicle should be disabled if vehicle count has been reached from other card selections'
+  );
+
+  test.todo(
+    'renders vehicle options depending on planet distance on planet select'
+  );
 });
